@@ -1,5 +1,7 @@
 # Smart Task Planner
 
+
+Execution DEMO Video : https://drive.google.com/file/d/1nJkfdRX7fTeU1bnwm270DXSJXsSTuZcX/view?usp=sharing
 > An AI-powered application that breaks down high-level user goals into a detailed, structured plan of actionable tasks, complete with timelines and dependencies.
 
 This project leverages the Google Gemini API's JSON mode to intelligently analyze a user's objective and generate a step-by-step guide to achieve it.
