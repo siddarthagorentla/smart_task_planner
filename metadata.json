@@ -1,0 +1,5 @@
+{
+  "name": "Smart Task Planner",
+  "description": "An AI-powered application that breaks down user goals into actionable tasks with timelines and dependencies. Simply enter your goal, and the AI will generate a structured plan to help you achieve it.",
+  "requestFramePermissions": []
+}
