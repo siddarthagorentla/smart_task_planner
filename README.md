@@ -1,59 +1,42 @@
-Smart Task Planner
-An AI-powered application that breaks down user goals into actionable tasks with timelines and dependencies. Simply enter your goal, and the AI will generate a structured plan to help you achieve it.
-✨ Core Features
-AI-Powered Planning: Leverages the Google Gemini API to intelligently analyze your goals.
-Structured Output: Decomposes high-level goals into a detailed list of actionable tasks.
-Task Details: Each task includes a description, an estimated timeline, and its dependencies.
-Dependency Mapping: Clearly visualizes which tasks must be completed before others can begin.
-Responsive UI: A clean, modern, and fully responsive interface built with React and Tailwind CSS.
-Loading & Error States: Provides clear feedback to the user while the plan is being generated or if an error occurs.
-🚀 How It Works
-The application provides a simple and intuitive user experience:
-Enter a Goal: The user types their objective into the main text area (e.g., "Build and launch a personal portfolio website in one month").
-Generate Plan: Upon clicking "Generate Plan", the application sends the user's goal to a backend service.
-Call Gemini API: The service communicates with the Google Gemini API. It uses a carefully crafted prompt that instructs the AI to act as an expert project manager.
-Enforce Structure: To ensure the AI's response is consistent and machine-readable, the request includes a strict JSON schema that defines the required structure for each task (id, taskName, description, timeline, dependencies).
-Receive & Parse: The AI returns a JSON object containing the list of tasks. The application parses this response.
-Display the Plan: The tasks are rendered on the screen as a series of cards, providing a clear and organized action plan for the user.
-🛠️ Tech Stack
-Frontend:
-React (with TypeScript)
-Tailwind CSS for styling
-AI Model:
-Google Gemini API (@google/genai SDK)
-📂 Project Structure
-The project is organized into a clean and maintainable structure:
-code
-Code
-/
-├── public/
-│   └── vite.svg        # Favicon
-├── src/
-│   ├── components/     # Reusable React components
-│   │   ├── Footer.tsx
-│   │   ├── GoalInputForm.tsx
-│   │   ├── Header.tsx
-│   │   ├── LoadingSpinner.tsx
-│   │   ├── TaskCard.tsx
-│   │   ├── TaskList.tsx
-│   │   └── Welcome.tsx
-│   ├── services/       # API interaction logic
-│   │   └── geminiService.ts
-│   ├── types.ts        # TypeScript type definitions
-│   ├── App.tsx         # Main application component
-│   └── index.tsx       # Application entry point
-├── .gitignore
-├── index.html          # Main HTML file
-└── metadata.json       # Project metadata
-🧠 The AI Engine: Gemini Integration
-The core logic resides in src/services/geminiService.ts. This file is responsible for communicating with the Gemini API.
-Prompt Engineering
-A detailed prompt guides the AI to produce the desired output. It sets the context, defines the goal, and lists constraints to ensure a high-quality, relevant plan.
-JSON Schema Enforcement
-To guarantee a structured response, we leverage Gemini's JSON mode. By providing a responseSchema, we instruct the model to return its output in a specific JSON format, eliminating the need for complex string parsing and making the integration robust.
-Here is the schema definition from the service:
-code
-TypeScript
+# Smart Task Planner
+
+> An AI-powered application that breaks down high-level user goals into a detailed, structured plan of actionable tasks, complete with timelines and dependencies.
+
+This project leverages the Google Gemini API's JSON mode to intelligently analyze a user's objective and generate a step-by-step guide to achieve it.
+
+![Smart Task Planner Screenshot](https://storage.googleapis.com/aistudio-o-images/project_screenshots/smart-task-planner.png)
+
+## ✨ Core Features
+
+*   **AI-Powered Planning**: Utilizes the Google Gemini API (`gemini-2.5-flash`) to intelligently decompose complex goals.
+*   **Structured JSON Output**: Enforces a strict JSON schema for reliable, machine-readable responses from the AI.
+*   **Detailed Task Generation**: Creates tasks with unique IDs, names, descriptions, and estimated timelines.
+*   **Dependency Mapping**: Clearly identifies and displays dependencies between tasks, showing which tasks must be completed first.
+*   **Modern & Responsive UI**: A clean, intuitive, and fully responsive interface built with React, TypeScript, and Tailwind CSS.
+*   **Clear User Feedback**: Includes dedicated loading and error states to keep the user informed during the generation process.
+
+## 🛠️ Tech Stack
+
+*   **Frontend**:
+    *   [React](https://react.dev/) (with TypeScript)
+    *   [Tailwind CSS](https://tailwindcss.com/) for styling
+*   **AI Model**:
+    *   [Google Gemini API](https://ai.google.dev/) via the `@google/genai` SDK
+
+## 🧠 How It Works
+
+The application's core logic is centered around a seamless interaction with the Gemini API.
+
+1.  **User Input**: The user enters a high-level goal into the text area (e.g., "Launch a new SaaS product in 3 months").
+2.  **API Call**: The `geminiService.ts` file constructs a detailed prompt, instructing the AI to act as an expert project manager.
+3.  **Schema Enforcement**: To ensure a predictable and structured response, the request includes a `responseSchema`. This forces the Gemini model to return its plan in a specific JSON format, eliminating parsing errors and making the data easy to work with.
+4.  **Parsing & Display**: The frontend receives the structured JSON, validates it, and dynamically renders the tasks as a series of clear, organized cards.
+
+### The Gemini JSON Schema
+
+The key to the application's reliability is the `planSchema` defined in `services/geminiService.ts`. This schema guarantees that the AI's output always matches the `Task` interface defined in the application.
+
+```typescript
 const planSchema = {
   type: Type.OBJECT,
   properties: {
@@ -78,33 +61,62 @@ const planSchema = {
   },
   required: ["tasks"],
 };
-⚙️ Getting Started
-To run this project locally, follow these steps.
-Prerequisites
-A modern web browser.
-A Google Gemini API key.
-Setup & Configuration
-Clone the repository:
-code
-Bash
-git clone https://github.com/your-username/smart-task-planner.git
-cd smart-task-planner
-API Key:
-This project requires a Google Gemini API key to function. The application is configured to read the key from an environment variable named API_KEY. You must set this up in your deployment environment.
-Running Locally:
-Since this project is set up with static HTML and ES modules, you can run it using any simple local web server. One of the easiest ways is using the serve package:
-code
-Bash
-# Install serve globally if you haven't already
-npm install -g serve
+```
 
-# Serve the project directory
-serve .
-Now, open your browser and navigate to the URL provided by the server (usually http://localhost:3000).
-🤝 Contributing
-Contributions are welcome! If you have ideas for improvements or find any issues, please open an issue or submit a pull request.
-Fork the Project
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-Push to the Branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+## 📂 Project Structure
+
+The codebase is organized logically into components, services, and type definitions for maintainability.
+
+```
+.
+├── README.md
+├── App.tsx                 # Main application component and state management
+├── components/
+│   ├── Footer.tsx
+│   ├── GoalInputForm.tsx
+│   ├── Header.tsx
+│   ├── LoadingSpinner.tsx
+│   ├── TaskCard.tsx        # Renders a single task
+│   ├── TaskList.tsx        # Renders the list of tasks
+│   └── Welcome.tsx
+├── index.html              # Entry point, includes CDN links and importmap
+├── index.tsx               # Renders the React application
+├── metadata.json
+├── services/
+│   └── geminiService.ts    # Handles all communication with the Gemini API
+└── types.ts                # TypeScript type definitions
+```
+
+## 🚀 Getting Started
+
+This project is configured to run directly in the browser without a build step, thanks to ES modules and CDN-hosted dependencies.
+
+### Prerequisites
+
+*   A modern web browser (like Chrome, Firefox, or Edge).
+*   A Google Gemini API key.
+
+### Running Locally
+
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/your-username/smart-task-planner.git
+    cd smart-task-planner
+    ```
+
+2.  **Set Up API Key**
+    The application loads the Gemini API key from an environment variable `process.env.API_KEY`. When running in a development environment that supports this (like AI Studio), this key is injected automatically. For other environments, you would need to configure this variable.
+
+3.  **Serve the Project**
+    Since this is a static project, you can use any simple local web server. The `serve` package is a great option.
+
+    ```bash
+    # If you don't have serve, install it globally
+    npm install -g serve
+
+    # Run the server from the project's root directory
+    serve .
+    ```
+
+4.  **Open in Browser**
+    The server will give you a local URL (usually `http://localhost:3000`). Open it in your browser to use the application.
